@@ -4,7 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Homework Whiteboard Generator",
   description: "Generate homework whiteboard images for school classes instantly",
-};
+   icons: {
+    icon: "/book.png", 
+}};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
