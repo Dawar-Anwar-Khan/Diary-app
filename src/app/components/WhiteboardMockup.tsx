@@ -175,7 +175,7 @@ export default function WhiteboardMockup({
             <div
               style={{
                 position: "absolute",
-                bottom: "-21%",
+                bottom: "-16%",
                 left: "50%",
                 transform: "translateX(-50%)",
                 width: "36%",
@@ -186,7 +186,7 @@ export default function WhiteboardMockup({
             <div
               style={{
                 position: "absolute",
-                bottom: "-27%",
+                bottom: "-20%",
                 left: "50%",
                 transform: "translateX(-50%)",
                 width: "36%",
@@ -203,7 +203,7 @@ export default function WhiteboardMockup({
           <div
             className="flex flex-col"
             style={{
-              gap: "clamp(3px, 1.3vh, 16px)",
+              gap: "clamp(2px, 1.3vh, 13px)",
               flex: 1,
               overflow: "hidden",
             }}
