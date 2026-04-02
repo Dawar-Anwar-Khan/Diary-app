@@ -13,18 +13,37 @@ interface Props {
 function formatDate(dateStr: string) {
   const d = new Date(dateStr + "T00:00:00");
   const days = [
-    "Sunday","Monday","Tuesday","Wednesday",
-    "Thursday","Friday","Saturday",
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
   const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
   const day = d.getDate();
   const suffix =
-    day === 1 || day === 21 || day === 31 ? "st" :
-    day === 2 || day === 22 ? "nd" :
-    day === 3 || day === 23 ? "rd" : "th";
+    day === 1 || day === 21 || day === 31
+      ? "st"
+      : day === 2 || day === 22
+        ? "nd"
+        : day === 3 || day === 23
+          ? "rd"
+          : "th";
   return `${days[d.getDay()]}, ${day}${suffix} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
@@ -46,10 +65,7 @@ export default function WhiteboardMockup({
         width: 86.54%  height: 66.63%
       Text gets an inner padding of ~4% on each side.
     */
-    <div
-      className="relative w-full"
-      style={{ aspectRatio: "1308 / 872" }}
-    >
+    <div className="relative w-full" style={{ aspectRatio: "1308 / 872" }}>
       {/* ── REAL PHOTO ── */}
       <Image
         src="/whiteboard.webp"
@@ -64,9 +80,9 @@ export default function WhiteboardMockup({
       <div
         className="absolute"
         style={{
-          left:   "6.88%",
-          top:    "12.96%",
-          width:  "86.54%",
+          left: "6.88%",
+          top: "12.96%",
+          width: "86.54%",
           height: "66.63%",
           // Slightly darken the board so marker text pops (looks written on)
           // background: "rgba(0,0,0,0.01)",
@@ -78,14 +94,13 @@ export default function WhiteboardMockup({
         <div
           className="w-full h-full flex flex-col"
           style={{
-            paddingLeft:   "5%",
-            paddingRight:  "5%",
-            paddingTop:    "4%",
-            paddingBottom: "3%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
+            paddingTop: "2.5%",
+            paddingBottom: "2%",
             gap: 0,
           }}
         >
-
           {/* School name */}
           {schoolName?.trim() && (
             <div
@@ -102,31 +117,38 @@ export default function WhiteboardMockup({
             </div>
           )}
 
-          {/* Date */}
+          {/* Date + Class on same row */}
           <div
-            className="text-center font-bold"
             style={{
-              fontSize: "clamp(13px, 2.6vw, 38px)",
-              color: "#111",
-              lineHeight: 1.15,
-              // marginBottom: "0.5%",
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "center",
+              gap: "1em",
+              marginTop:"1.5%",
+              marginBottom: "0.4%",
               fontFamily: "'Patrick Hand', cursive",
             }}
           >
-            {formatDate(dateStr)}
-          </div>
-
-          {/* Class — right aligned */}
-          <div
-            className="text-right"
-            style={{
-              fontSize: "clamp(8px, 1.25vw, 18px)",
-              color: "rgba(40,40,40,0.55)",
-              // marginBottom: "1%",
-              fontFamily: "'Patrick Hand', cursive",
-            }}
-          >
-            Class: {className}
+            <div
+              className="font-bold"
+              style={{
+                fontSize: "clamp(13px, 2.4vw, 34px)",
+                color: "#111",
+                lineHeight: 1.1,
+              }}
+            >
+              {formatDate(dateStr)}
+            </div>
+            <div
+              style={{
+                textAlign:"right",
+                fontSize: "clamp(10px, 1.5vw, 19px)",
+                color: "rgba(40,40,40,0.55)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              | Class: {className}
+            </div>
           </div>
 
           {/* Dashed divider */}
@@ -146,7 +168,7 @@ export default function WhiteboardMockup({
               lineHeight: 1.1,
               marginBottom: "1%",
               fontFamily: "'Patrick Hand', cursive",
-              paddingBottom:7
+              paddingBottom: 7,
             }}
           >
             Homework
@@ -225,7 +247,6 @@ export default function WhiteboardMockup({
               );
             })}
           </div>
-
         </div>
       </div>
     </div>
