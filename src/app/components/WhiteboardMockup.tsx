@@ -96,7 +96,7 @@ export default function WhiteboardMockup({
           style={{
             paddingLeft: "5%",
             paddingRight: "5%",
-            paddingTop: "2.5%",
+            paddingTop: "3.3%",
             paddingBottom: "2%",
             gap: 0,
           }}
@@ -106,6 +106,7 @@ export default function WhiteboardMockup({
             <div
               className="text-center"
               style={{
+                marginTop:"0.3%",
                 fontSize: "clamp(9px, 1.3vw, 18px)",
                 color: "rgba(60,55,50,0.6)",
                 letterSpacing: "0.08em",
@@ -124,7 +125,7 @@ export default function WhiteboardMockup({
               alignItems: "baseline",
               justifyContent: "center",
               gap: "1em",
-              marginTop:"1.5%",
+              marginTop:"0.5%",
               marginBottom: "0.4%",
               fontFamily: "'Patrick Hand', cursive",
             }}

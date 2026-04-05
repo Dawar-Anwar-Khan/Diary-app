@@ -7,9 +7,12 @@ import SubjectRow from "./components/SubjectRow";
 import SaveTemplateModal from "./components/SaveTemplateModal";
 import TemplatesSidebar from "./components/TemplatesSidebar";
 
-const WhiteboardMockup = dynamic(() => import("./components/WhiteboardMockup"), {
-  ssr: false,
-});
+const WhiteboardMockup = dynamic(
+  () => import("./components/WhiteboardMockup"),
+  {
+    ssr: false,
+  },
+);
 
 function todayStr() {
   return new Date().toISOString().split("T")[0];
@@ -19,19 +22,19 @@ function makeId() {
 }
 
 const DEFAULT_SUBJECTS: SubjectEntry[] = [
-  { id: makeId(), name: "Maths",   task: "" },
+  { id: makeId(), name: "Maths", task: "" },
   { id: makeId(), name: "English", task: "" },
-  { id: makeId(), name: "Hindi",   task: "" },
+  { id: makeId(), name: "Hindi", task: "" },
 ];
 
 export default function HomePage() {
-  const [date,       setDate]       = useState(todayStr());
-  const [className,  setClassName]  = useState("empty");
+  const [date, setDate] = useState(todayStr());
+  const [className, setClassName] = useState("empty");
   const [schoolName, setSchoolName] = useState("");
-  const [subjects,   setSubjects]   = useState<SubjectEntry[]>(DEFAULT_SUBJECTS);
+  const [subjects, setSubjects] = useState<SubjectEntry[]>(DEFAULT_SUBJECTS);
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const [sidebarOpen,   setSidebarOpen]   = useState(false);
-  const [toast,    setToast]    = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [toast, setToast] = useState("");
   const [downloading, setDownloading] = useState(false);
   const mockupRef = useRef<HTMLDivElement>(null);
 
@@ -79,99 +82,253 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50">
+    <div className="min-h-screen" style={{ background: "#0f1117" }}>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-sm">
+      <header
+        className="px-6 py-4 flex items-center justify-between sticky top-0 z-40"
+        style={{
+          background: "linear-gradient(135deg, #1e3a8a, #1d4ed8)",
+          borderBottom: "1px solid #2563eb",
+          boxShadow: "0 4px 24px rgba(29, 78, 216, 0.4)",
+        }}
+      >
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-base shadow">H</div>
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-white font-black text-base"
+            style={{
+              background: "rgba(255,255,255,0.15)",
+              border: "1px solid rgba(255,255,255,0.2)",
+            }}
+          >
+            H
+          </div>
           <div>
-            <h1 className="text-base font-black text-gray-800 leading-tight">Homework Board</h1>
-            <p className="text-xs text-gray-400 leading-tight">Whiteboard Generator</p>
+            <h1
+              className="text-base font-black leading-tight"
+              style={{ color: "#ffffff" }}
+            >
+              Homework Board
+            </h1>
+            <p
+              className="text-xs leading-tight"
+              style={{ color: "rgba(255,255,255,0.55)" }}
+            >
+              Whiteboard Generator
+            </p>
           </div>
         </div>
         <button
           onClick={() => setSidebarOpen(true)}
-          className="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1.5 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-bold transition-colors"
+          style={{
+            background: "rgba(255,255,255,0.12)",
+            color: "#ffffff",
+            border: "1px solid rgba(255,255,255,0.2)",
+          }}
         >
           📋 Templates
           {templates.length > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span
+              className="text-xs rounded-full w-5 h-5 flex items-center justify-center font-black"
+              style={{ background: "#ffffff", color: "#1d4ed8" }}
+            >
               {templates.length}
             </span>
           )}
         </button>
       </header>
 
-      <main className="max-w-[1600px] mx-auto px-4 py-6 grid grid-cols-1 xl:grid-cols-[400px_1fr] gap-6 items-start">
-
+      <main className="max-w-[1600px] mx-auto px-6 py-6 grid grid-cols-1 xl:grid-cols-[400px_1fr] gap-6 items-start">
         {/* LEFT: controls */}
         <div className="flex flex-col gap-4">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col gap-4">
-            <h2 className="text-sm font-black text-gray-700 uppercase tracking-wide">Board Details</h2>
+          {/* Board Details card */}
+          <div
+            className="rounded-2xl p-5 flex flex-col gap-4"
+            style={{ background: "#161b27", border: "1px solid #1e2130" }}
+          >
+            <h2
+              className="text-xs font-black uppercase tracking-widest"
+              style={{
+               background: "linear-gradient(135deg, #00d2ff, #7c3aed)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Board Details
+            </h2>
+
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">School Name (optional)</label>
+              <label
+                className="text-xs font-bold uppercase tracking-wide block mb-1.5"
+                style={{ color: "#475569" }}
+              >
+                School Name (optional)
+              </label>
               <input
-                type="text" value={schoolName} onChange={(e) => setSchoolName(e.target.value)}
+                type="text"
+                value={schoolName}
+                onChange={(e) => setSchoolName(e.target.value)}
                 placeholder="e.g. St. Mary's Primary School"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full rounded-lg px-3 py-2.5 text-sm transition-all outline-none"
+                style={{
+                  background: "#0f1117",
+                  border: "1px solid #2d3348",
+                  color: "#e2e8f0",
+                }}
               />
             </div>
+
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">Date</label>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                <label
+                  className="text-xs font-bold uppercase tracking-wide block mb-1.5"
+                  style={{ color: "#475569" }}
+                >
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full rounded-lg px-3 py-2.5 text-sm outline-none"
+                  style={{
+                    background: "#0f1117",
+                    border: "1px solid #2d3348",
+                    color: "#e2e8f0",
+                    colorScheme: "dark",
+                  }}
                 />
               </div>
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">Class</label>
-                <select value={className} onChange={(e) => setClassName(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                <label
+                  className="text-xs font-bold uppercase tracking-wide block mb-1.5"
+                  style={{ color: "#475569" }}
                 >
-                  {CLASS_OPTIONS.map((c) => <option key={c}>{c}</option>)}
+                  Class
+                </label>
+                <select
+                  value={className}
+                  onChange={(e) => setClassName(e.target.value)}
+                  className="w-full rounded-lg px-3 py-2.5 text-sm outline-none"
+                  style={{
+                    background: "#0f1117",
+                    border: "1px solid #2d3348",
+                    color: "#e2e8f0",
+                    colorScheme: "dark",
+                  }}
+                >
+                  {CLASS_OPTIONS.map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
                 </select>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col gap-3">
-            <h2 className="text-sm font-black text-gray-700 uppercase tracking-wide">Subjects & Homework</h2>
+          {/* Subjects card */}
+          <div
+            className="rounded-2xl p-5 flex flex-col gap-3"
+            style={{ background: "#161b27", border: "1px solid #1e2130" }}
+          >
+            <h2
+              className="text-xs font-black uppercase tracking-widest"
+              style={{
+                background: "linear-gradient(135deg, #00d2ff, #7c3aed)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Subjects & Homework
+            </h2>
             {subjects.map((s) => (
-              <SubjectRow key={s.id} entry={s}
+              <SubjectRow
+                key={s.id}
+                entry={s}
                 onChange={(updated) => updateSubject(s.id, updated)}
                 onRemove={() => removeSubject(s.id)}
                 canRemove={subjects.length > 1}
               />
             ))}
-            <button onClick={addSubject}
-              className="w-full border-2 border-dashed border-gray-300 rounded-lg py-2.5 text-sm font-bold text-gray-400 hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50/30 transition-colors"
+            <button
+              onClick={addSubject}
+              className="w-full rounded-lg py-2.5 text-sm font-bold transition-colors"
+              style={{
+                background: "transparent",
+                border: "1.5px dashed #2d3348",
+                color: "#475569",
+              }}
             >
               + Add Subject
             </button>
           </div>
 
+          {/* Action buttons */}
           <div className="flex flex-col gap-2">
-            <button onClick={downloadImage} disabled={downloading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black rounded-xl py-3.5 text-base transition-colors shadow-md shadow-blue-200"
+            <button
+              onClick={downloadImage}
+              disabled={downloading}
+              className="w-full font-black rounded-xl py-3.5 text-sm transition-all"
+              style={{
+                background: downloading
+                  ? "#1e3a8a"
+                  : "linear-gradient(135deg, #1e3a8a, #1d4ed8)",
+                color: "#fff",
+                opacity: downloading ? 0.7 : 1,
+                letterSpacing: "0.02em",
+                boxShadow: downloading
+                  ? "none"
+                  : "0 4px 24px rgba(29, 78, 216, 0.4)",
+              }}
             >
-              {downloading ? "Preparing Download…" : "⬇ Download High-Quality Image"}
+              {downloading
+                ? "Preparing Download…"
+                : "⬇  Download High-Quality Image"}
             </button>
-            <button onClick={() => setShowSaveModal(true)}
-              className="w-full border-2 border-blue-200 text-blue-600 font-bold rounded-xl py-2.5 text-sm hover:bg-blue-50 transition-colors"
+            <button
+              onClick={() => setShowSaveModal(true)}
+              className="w-full font-bold rounded-xl py-2.5 text-sm transition-colors"
+              style={{
+                background: "#161b27",
+                border: "1.5px solid #2d3348",
+                color: "#94a3b8",
+              }}
             >
               💾 Save as Template
             </button>
           </div>
-          <p className="text-xs text-center text-gray-400">Downloaded image is high-res — perfect for WhatsApp</p>
+
+          <p className="text-xs text-center" style={{ color: "#334155" }}>
+            Downloaded image is high-res — perfect for WhatsApp
+          </p>
         </div>
 
         {/* RIGHT: mockup preview */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between px-1">
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">Live Preview</span>
-            <span className="text-xs text-gray-400">Updates as you type</span>
+            <span
+              className="text-xs font-black uppercase tracking-widest"
+              style={{
+               background: "linear-gradient(135deg, #00d2ff, #7c3aed)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Live Preview
+            </span>
+            <span className="text-xs" style={{ color: "#334155" }}>
+              Updates as you type
+            </span>
           </div>
-          <div ref={mockupRef} className="w-full rounded-xl overflow-hidden shadow-2xl">
+          <div
+            ref={mockupRef}
+            className="w-full rounded-2xl overflow-hidden"
+            style={{
+              boxShadow: "0 0 0 1px #1e2130, 0 24px 60px rgba(0,0,0,0.6)",
+            }}
+          >
             <WhiteboardMockup
               dateStr={date}
               className={className}
@@ -182,23 +339,59 @@ export default function HomePage() {
         </div>
       </main>
 
+      {/* Templates Sidebar */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div className="flex-1 bg-black/30" onClick={() => setSidebarOpen(false)} />
-          <div className="w-80 bg-white h-full shadow-2xl flex flex-col">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <h2 className="font-black text-gray-800">Saved Templates</h2>
-              <button onClick={() => setSidebarOpen(false)} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
+          <div
+            className="flex-1 bg-black/50"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <div
+            className="w-80 h-full flex flex-col"
+            style={{ background: "#161b27", borderLeft: "1px solid #1e2130" }}
+          >
+            <div
+              className="flex items-center justify-between px-5 py-4"
+              style={{ borderBottom: "1px solid #1e2130" }}
+            >
+              <h2 className="font-black" style={{ color: "#f1f5f9" }}>
+                Saved Templates
+              </h2>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="text-2xl leading-none"
+                style={{ color: "#475569" }}
+              >
+                ×
+              </button>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
-              <TemplatesSidebar templates={templates} onLoad={loadTemplate} onDelete={deleteTemplate} />
+              <TemplatesSidebar
+                templates={templates}
+                onLoad={loadTemplate}
+                onDelete={deleteTemplate}
+              />
             </div>
           </div>
         </div>
       )}
-      {showSaveModal && <SaveTemplateModal onSave={handleSaveTemplate} onClose={() => setShowSaveModal(false)} />}
+
+      {showSaveModal && (
+        <SaveTemplateModal
+          onSave={handleSaveTemplate}
+          onClose={() => setShowSaveModal(false)}
+        />
+      )}
+
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-xl z-50">
+        <div
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 text-sm font-semibold px-5 py-2.5 rounded-full z-50"
+          style={{
+            background: "#1e2130",
+            color: "#e2e8f0",
+            border: "1px solid #2d3348",
+          }}
+        >
           {toast}
         </div>
       )}
