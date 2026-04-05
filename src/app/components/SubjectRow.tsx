@@ -19,7 +19,7 @@ export default function SubjectRow({
       <select
         value={entry.name}
         onChange={(e) => onChange({ ...entry, name: e.target.value })}
-        className="rounded-lg px-2 py-2 text-sm font-semibold w-36 flex-shrink-0 outline-none"
+        className="rounded-lg px-2 py-2 text-sm font-semibold w-20 flex-shrink-0 outline-none"
         style={{
           background: "#0f1117",
           border: "1px solid #2d3348",
